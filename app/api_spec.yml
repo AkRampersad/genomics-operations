@@ -1389,6 +1389,30 @@ paths:
           required: true
           description: The code to be translated.
 
+  /utilities/parse-genomic-study:
+    get:
+      description: >
+        Parse a FHIR R5 GenomicStudy JSON file into structured analysis data.
+      summary: "Parse Genomic Study"
+      operationId: "app.utilities_endpoints.parse_genomic_study"
+      tags:
+        - "Operations Utilities (not part of balloted HL7 Operations)"
+      responses:
+        '200':
+          description: "Returns extracted analyses from the GenomicStudy resource."
+          content:
+            application/json:
+              schema:
+                type: object
+      parameters:
+        - name: file
+          in: query
+          required: true
+          description: "Path to the GenomicStudy JSON file on the server."
+          schema:
+            type: string
+            example: "/data/genomic_study.json"
+
 tags:
   - name: Subject Genotype Operations
   - name: Subject Phenotype Operations

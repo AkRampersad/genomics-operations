@@ -8,6 +8,8 @@ from flask import abort, jsonify
 from app import common
 from utilities.pyard import redux
 
+from utilities.Genomic_Study_Parser import GenomicStudyParser
+
 
 def fetch_concept_map(mapID):
     url = f"http://hapi.fhir.org/baseR4/ConceptMap/{mapID}"
@@ -373,3 +375,11 @@ def normalize_hla(allele):
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
         abort(422, 'Failed HLA normalization')
+
+
+def parse_genomic_study(file):
+    try:
+        return jsonify(GenomicStudyParser(file).parse())
+    except Exception as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+        abort(422, 'Failed to parse genomic study file')
